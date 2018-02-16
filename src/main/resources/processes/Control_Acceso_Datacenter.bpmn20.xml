@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="dataCenterAccessProcess" name="Control Acceso Datacenter" isExecutable="true">
+    <startEvent id="startEvent1"></startEvent>
+    <serviceTask id="saveAcceRequest" name="Save Access Request" flowable:expression="${requestAccessControlServiceImpl.logAccessControlRequest(accessControlRequest)}"></serviceTask>
+    <sequenceFlow id="sid-A4D43BF6-0F89-4577-82CE-7016C5C3FFBC" sourceRef="startEvent1" targetRef="saveAcceRequest"></sequenceFlow>
+    <serviceTask id="sid-751E27BC-9B8B-4F17-BBF6-45F4536274D3" name="Send informative Mail" flowable:type="mail">
+      <extensionElements>
+        <flowable:field name="to">
+          <flowable:expression><![CDATA[${mail}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="from">
+          <flowable:string><![CDATA[controlAcceso@datacenter.com]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="subject">
+          <flowable:expression><![CDATA[${'Nuevo acceso otorgado nro: '.concat(accessControlRequest.id.toString())}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="html">
+          <flowable:expression><![CDATA[<style>
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+}
+</style>
+
+<h1>Detalles del control de Acceso nro: ${accessControlRequest.id} </h1>
+
+<p><b>Nombre: </b> ${accessControlRequest.nombre}</p>
+<p><b>Apellido: </b> ${accessControlRequest.apellido}</p>
+<p><b>DNI: </b> ${accessControlRequest.dni}</p>
+<p><b>Autorizado por: </b> ${accessControlRequest.autoriza}</p>
+<p><b>Numero de Serie de Notebook: </b> ${accessControlRequest.notebook}</p>
+<p><b>Racks donde accederá: </b> ${accessControlRequest.racks}</p>
+<p><b>Materiales ingresados: </b> ${accessControlRequest.materialesIngresa.toString()}</p>]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="charset">
+          <flowable:string><![CDATA[iso-8859-1]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-421757F8-EDE2-4017-A5E2-AFE9AA2D3FCF" sourceRef="saveAcceRequest" targetRef="sid-751E27BC-9B8B-4F17-BBF6-45F4536274D3"></sequenceFlow>
+    <endEvent id="sid-D5582296-AF45-4D8C-ABE0-5162BDC7D5F1"></endEvent>
+    <sequenceFlow id="sid-4A89811A-ADBB-4AA7-95B4-4C23FFC9639C" sourceRef="sid-751E27BC-9B8B-4F17-BBF6-45F4536274D3" targetRef="sid-D5582296-AF45-4D8C-ABE0-5162BDC7D5F1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dataCenterAccessProcess">
+    <bpmndi:BPMNPlane bpmnElement="dataCenterAccessProcess" id="BPMNPlane_dataCenterAccessProcess">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="saveAcceRequest" id="BPMNShape_saveAcceRequest">
+        <omgdc:Bounds height="80.0" width="100.0" x="225.0" y="125.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-751E27BC-9B8B-4F17-BBF6-45F4536274D3" id="BPMNShape_sid-751E27BC-9B8B-4F17-BBF6-45F4536274D3">
+        <omgdc:Bounds height="80.0" width="100.0" x="420.0" y="125.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-D5582296-AF45-4D8C-ABE0-5162BDC7D5F1" id="BPMNShape_sid-D5582296-AF45-4D8C-ABE0-5162BDC7D5F1">
+        <omgdc:Bounds height="28.0" width="28.0" x="630.0" y="151.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-421757F8-EDE2-4017-A5E2-AFE9AA2D3FCF" id="BPMNEdge_sid-421757F8-EDE2-4017-A5E2-AFE9AA2D3FCF">
+        <omgdi:waypoint x="325.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-4A89811A-ADBB-4AA7-95B4-4C23FFC9639C" id="BPMNEdge_sid-4A89811A-ADBB-4AA7-95B4-4C23FFC9639C">
+        <omgdi:waypoint x="520.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-A4D43BF6-0F89-4577-82CE-7016C5C3FFBC" id="BPMNEdge_sid-A4D43BF6-0F89-4577-82CE-7016C5C3FFBC">
+        <omgdi:waypoint x="120.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="225.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

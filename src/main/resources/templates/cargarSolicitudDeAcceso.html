@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Workflow Grupo Petersen</title>
+    <link href="webjars/bootstrap/4.0.0-alpha.6-1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+
+</head>
+
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/4.0.0-alpha.6-1/js/bootstrap.min.js"></script>
+
+
+<h1>Datos Usuario Conectado</h1>
+<p th:text="'Username: ' + ${user.username} + '!'"></p>
+
+<h3>Cargar los siguientes campos:</h3>
+<br/>
+<form action="#" th:action="@{/accessControlRequest}" th:object="${accessControl}" method="post">
+
+    <p>Nombre del solicitante:
+        <input type="text" th:field="*{nombre}"/>
+    </p>
+
+    <p>Apellido del solicitante:
+        <input type="text" th:field="*{apellido} "/>
+    </p>
+
+    <p>DNI del solicitante:
+        <input type="text" th:field="*{dni} "/>
+    </p>
+
+    <p> Empresa:
+        <input type="text" th:field="*{empresa} "/>
+    </p>
+
+
+    <p> Número de serie de la notenbook:
+        <input type="text" th:field="*{notebook} "/>
+    </p>
+
+    <div>
+        <p>Acepta Terminos del acceso al data center:
+            <input type="checkbox" th:field="*{terminos}"/>
+        </p>
+    </div>
+
+    <p>Racks donde accedera>
+        <input type="text" th:field="*{racks}"/>
+    </p>
+
+    <p>Materiales ingresados: </p>
+    <table>
+        <thead>
+        <tr>
+            <th th:text="'Nombre Material que ingresa'">Seeds per cell</th>
+            <th>
+                <button type="submit" name="addMat" th:text="'Agregar Material'">Add row</button>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="material : *{materialesIngresa}">
+            <label>
+                <input th:field="${material.nombre}" />
+            </label>
+            <td>
+                <button type="submit" name="removeRow"
+                        th:value="${material.nombre}" th:text="'Borrar Material'">Eliminar Material</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <input type="submit" name="save" value="Solicitar Acceso" />
+</form>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="btn btn-danger" value="Sign Out"/>
+</form>
+
+</body>
+</html>

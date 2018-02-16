@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Workflow Grupo Petersen</title>
+    <link href="webjars/bootstrap/4.0.0-alpha.6-1/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+
+</head>
+
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/4.0.0-alpha.6-1/js/bootstrap.min.js"></script>
+
+
+<h1>Datos Usuario Conectado</h1>
+<p th:text="'Username: ' + ${user.username} + '!'"></p>
+
+<h3>Se ha cargado la solicitud correctamente</h3>
+<br/>
+<p th:text="'Numero de solicitud: ' + ${accessControlRequest.id} "></p>
+<p th:text="'Nombre de la persona a ingresar:: ' + ${accessControlRequest.nombre} "></p>
+<p th:text="'Apellido de la persona a ingresar: ' + ${accessControlRequest.apellido} "></p>
+<p th:text="'DNI de la persona a ingresar:: ' + ${accessControlRequest.dni} "></p>
+<p th:text="'Nombre de usuario del autoriazdor: ' + ${accessControlRequest.autoriza} "></p>
+<p th:text="'Número de serie de Notebook: ' + ${accessControlRequest.notebook} "></p>
+<p th:unless="${#strings.isEmpty(accessControlRequest.racks)}" th:text="'Racks donde accdederá: ' + ${accessControlRequest.racks} "></p>
+<p>Materiales ingresados: </p>
+<ul th:each="material : ${accessControlRequest.materialesIngresa}">
+    <il th:text="${material.nombre}"></il>
+</ul>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="btn btn-danger" value="Sign Out"/>
+</form>
+
+</body>
+</html>

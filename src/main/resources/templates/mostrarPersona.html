@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Workflow Grupo Petersen</title>
+</head>
+<body>
+
+<h1> Person Details</h1>
+<p th:text="'Hola, ' + ${person.username} + '!'"></p>
+<p th:text="'Tu nombre es: ' + ${person.firstName} + '!'"></p>
+<p th:text="'Tu apellido es: ' + ${person.lastName} + '!'"></p>
+
+<h1>Logged in User Details</h1>
+<p th:text="'User Name: ' + ${user.username}"></p>
+
+
+<p>Roles:</p>
+<tr th:each="role : ${user.authorities}" class="row">
+    <td th:text="${role.authority}"></td>
+</tr>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+</body>
+</html>

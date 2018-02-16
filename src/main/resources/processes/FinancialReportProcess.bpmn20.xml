@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://activiti.org/bpmn20" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Yaoqiang BPMN Editor" exporterVersion="5.3" expressionLanguage="http://www.w3.org/1999/XPath" id="definitions" name="" targetNamespace="http://activiti.org/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
+  <process id="financialReport" isClosed="false" name="Monthly financial report process" processType="None">
+    <startEvent id="theStart" isInterrupting="true" parallelMultiple="false">
+      <outgoing>flow1</outgoing>
+      <outputSet/>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="theStart" targetRef="writeReportTask"/>
+    <userTask completionQuantity="1" id="writeReportTask" implementation="##unspecified" isForCompensation="false" name="Write monthly financial report" startQuantity="1">
+      <documentation id="writeReportTask_D_1" textFormat="text/plain"><![CDATA[
+        Write monthly financial report for publication to shareholders.
+      ]]></documentation>
+      <extensionElements>
+      </extensionElements>
+      <incoming>flow1</incoming>
+      <outgoing>flow2</outgoing>
+      <potentialOwner id="writeReportTask_RES_1">
+        <resourceAssignmentExpression>
+          <formalExpression><![CDATA[accountancy]]></formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="writeReportTask" targetRef="verifyReportTask"/>
+    <userTask completionQuantity="1" id="verifyReportTask" implementation="##unspecified" isForCompensation="false" name="Verify monthly financial report" startQuantity="1">
+      <documentation id="verifyReportTask_D_1" textFormat="text/plain"><![CDATA[
+        Verify monthly financial report composed by the accountancy department.
+        This financial report is going to be sent to all the company shareholders.  
+      ]]></documentation>
+      <incoming>flow2</incoming>
+      <outgoing>flow3</outgoing>
+      <potentialOwner id="verifyReportTask_RES_1">
+        <resourceAssignmentExpression>
+          <formalExpression><![CDATA[management]]></formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="verifyReportTask" targetRef="theEnd"/>
+    <endEvent id="theEnd">
+      <incoming>flow3</incoming>
+      <inputSet/>
+    </endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="Yaoqiang_Diagram-financialReport" name="Untitled Diagram" resolution="96.0">
+    <bpmndi:BPMNPlane bpmnElement="financialReport">
+      <bpmndi:BPMNShape bpmnElement="theStart" id="Yaoqiang-theStart">
+        <omgdc:Bounds height="32.0" width="32.0" x="75.0" y="225.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="19.84" width="6.0" x="88.0" y="265.04"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="writeReportTask" id="Yaoqiang-writeReportTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="165.0" y="200.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="34.84" width="78.0" x="176.0" y="224.58"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="verifyReportTask" id="Yaoqiang-verifyReportTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="330.0" y="200.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="34.84" width="78.0" x="341.0" y="224.58"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="theEnd" id="Yaoqiang-theEnd">
+        <omgdc:Bounds height="32.0" width="32.0" x="480.0" y="226.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="19.84" width="6.0" x="493.0" y="266.04"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="Yaoqiang-flow3">
+        <omgdi:waypoint x="430.16666666666663" y="240.0"/>
+        <omgdi:waypoint x="480.16666666666663" y="242.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="19.84" width="6.0" x="452.0" y="231.25"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="Yaoqiang-flow2">
+        <omgdi:waypoint x="265.16666666666663" y="240.0"/>
+        <omgdi:waypoint x="330.16666666666663" y="240.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="19.84" width="6.0" x="294.67" y="230.08"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="Yaoqiang-flow1">
+        <omgdi:waypoint x="107.16666666666663" y="241.0"/>
+        <omgdi:waypoint x="165.16666666666663" y="240.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="19.84" width="6.0" x="133.0" y="230.42"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
